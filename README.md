@@ -123,6 +123,6 @@ pip install transformers[sentencepiece] datasets sacrebleu rouge_score py7zr
 - Optimize model for faster inference.
 
 ---
-**Author:** Your Name  
+**Author:** Group 21  
 **Date:** February 2025
 
