@@ -164,27 +164,16 @@ Open a new terminal
 
 
 #### Steps:
-1. Navigate to the backend folder:
-   ```sh
-   cd backend
-   ```
-
-2. Create a virtual environment (optional but recommended):
-   ```sh
-   python -m venv venv
-   venv\Scripts\activate
-   ```
-
-3. Navigate to the frontend folder:
+1. Navigate to the frontend folder:
    ```sh
    cd ..
    cd frontend
    ```
-4. Install dependencies:
+2. Install dependencies:
    ```sh
    npm install
    ```
-5. Start the React frontend:
+3. Start the React frontend:
    ```sh
    npm start
    ```
