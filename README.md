@@ -196,5 +196,5 @@ Open a new terminal
 
 ---
 
-**Author:** Group 21\
+**Author:** Group 21
 **Date:** February 2025
