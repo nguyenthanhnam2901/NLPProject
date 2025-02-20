@@ -144,19 +144,22 @@ Open a new terminal
 #### Prerequisites:
 - Node.js and npm
    ```sh
-        # Recommend install in the same environment as backend
+      # Recommend install in the same environment as backend
+      # On window 10/11:
+      cd backend
+      python -m venv venv
+      venv\Scripts\activate
 
-        # On window 10/11:
-        # Install Node.js and npm
-        winget install OpenJS.NodeJS
+      # Install Node.js and npm
+      winget install OpenJS.NodeJS
 
-        # Check
-        node -v
-        npm -v
+      # Check
+      node -v
+      npm -v
 
-        # If got blocked by shell: try these code then reset code terminal if needed
-        Get-Command node -ErrorAction SilentlyContinue
-        Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+      # If got blocked by shell: try these code then reset code terminal if needed
+      Get-Command node -ErrorAction SilentlyContinue
+      Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    ```
 
 
