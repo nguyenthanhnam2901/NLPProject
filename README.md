@@ -48,35 +48,42 @@ Text Summarization Project
 2. Create a virtual environment (optional but recommended):
    ```sh
    python -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+
+   # On Linux use:
+   source venv/bin/activate  
+   
+   # On Windows use: 
+   venv\Scripts\activate
    ```
 3. Install dependencies:
    ```sh
    pip install -r requirements.txt
    ```
 
-### Option 1: Retrain the Model
 
-If you want to fine-tune the PEGASUS model yourself, you can either run the training commands directly in your terminal or execute the provided Jupyter Notebook (`Text-Summarization-Fine-tuning-Transformers-model.ipynb`). The notebook contains step-by-step training instructions, ensuring that you generate a new model and checkpoints for inference.
-
-#### Training Commands:
-
-```sh
-pip install transformers[sentencepiece] datasets sacrebleu rouge_score py7zr
-python Text-Summarization-Fine-tuning-Transformers-model.ipynb  # Run Jupyter Notebook
-```
-
-Alternatively, open the Jupyter Notebook and follow the fine-tuning steps to train the model using the **SAMSum dataset**.
-
-### Option 2: Use a Pretrained Model
+### Option 1: Use a Pretrained Model
 
 If you don’t want to retrain the model, you can download a pretrained PEGASUS model along with the tokenizer from our Google Drive link and use it directly for inference.
 
 #### Steps:
 
 1. Download the pretrained model and tokenizer from [Google Drive](https://drive.google.com/drive/folders/17arjGx9-NPU-AdxjuZGrGkwvYNlzjZcn).
-2. Extract the files into a `models` directory inside the `backend` folder.
-3. Alternatively, you can download the model manually using the following terminal commands:
+2. Put it in the main folder and extract the files.
+3. Run the backend server in backend folder:
+   ```sh
+   # If you in the main folder
+   cd backend 
+   python app.py
+   ```
+   The backend will start at `http://localhost:5000/`
+
+
+
+### Option 2: Retrain the Model
+
+If you want to fine-tune the PEGASUS model yourself, you can either run the training commands directly in your terminal or execute the provided Jupyter Notebook (`Text-Summarization-Fine-tuning-Transformers-model.ipynb`). The notebook contains step-by-step training instructions, ensuring that you generate a new model and checkpoints for inference.
+
+1. Make model file and download the models using the following terminal commands:
    ```sh
    mkdir backend/models && cd backend/models
    wget https://huggingface.co/google/pegasus-cnn_dailymail/resolve/main/pytorch_model.bin
@@ -84,41 +91,37 @@ If you don’t want to retrain the model, you can download a pretrained PEGASUS 
    wget https://huggingface.co/google/pegasus-cnn_dailymail/resolve/main/spiece.model
    cd ../..
    ```
-4. Ensure the following files exist in `backend/models/`:
-   - `pytorch_model.bin`
-   - `config.json`
-   - `spiece.model`
-   - `tokenizer_config.json` 
-5. **Check **``** to ensure it correctly loads the model from **``**. If needed, update the model path accordingly.**
-6. Run the backend server:
+
+2. Key Libraries Install:
+
+The **fine-tuning process** is documented in `Text-Summarization-Fine-tuning-Transformers-model.ipynb` using **Hugging Face Transformers** and the **SAMSum dataset**.
+
+    ```sh
+    pip install transformers[sentencepiece] datasets sacrebleu rouge_score py7zr
+    ```
+
+3. Run Jupyter Notebook :
+    ```sh
+    python Text-Summarization-Fine-tuning-Transformers-model.ipynb  
+    ```
+
+What it does:
+- Load **SAMSum dataset** (`datasets.load_dataset("samsum")`)
+- Tokenize input text and summaries.
+- Fine-tune `google/pegasus-cnn_dailymail` using **Hugging Face Trainer**.
+- Evaluate using **ROUGE metrics**.
+- Save the model and tokenizer for deployment.
+
+4. Run the backend server in backend folder:
    ```sh
+   # If you in the main folder
+   cd backend 
    python app.py
    ```
    The backend will start at `http://localhost:5000/`
 
-### Frontend Setup
 
-#### Prerequisites:
-
-- Node.js and npm
-
-#### Steps:
-
-1. Navigate to the frontend folder:
-   ```sh
-   cd frontend
-   ```
-2. Install dependencies:
-   ```sh
-   npm install
-   ```
-3. Start the React frontend:
-   ```sh
-   npm start
-   ```
-   The frontend will be available at `http://localhost:3000/`
-
-## API Endpoint
+#### API Endpoint
 
 - **Endpoint:** `POST /summarize`
 - **Request Body:**
@@ -134,23 +137,57 @@ If you don’t want to retrain the model, you can download a pretrained PEGASUS 
   }
   ```
 
-## Model Training & Fine-Tuning
 
-The **fine-tuning process** is documented in `Text-Summarization-Fine-tuning-Transformers-model.ipynb` using **Hugging Face Transformers** and the **SAMSum dataset**.
+### Frontend Setup
+Open a new terminal
 
-#### Key Libraries Used:
+#### Prerequisites:
+- Node.js and npm
+   ```sh
+        # Recommend install in the same environment as backend
 
-```sh
-pip install transformers[sentencepiece] datasets sacrebleu rouge_score py7zr
-```
+        # On window 10/11:
+        # Install Node.js and npm
+        winget install OpenJS.NodeJS
 
-#### Training Steps:
+        # Check
+        node -v
+        npm -v
 
-- Load **SAMSum dataset** (`datasets.load_dataset("samsum")`)
-- Tokenize input text and summaries.
-- Fine-tune `google/pegasus-cnn_dailymail` using **Hugging Face Trainer**.
-- Evaluate using **ROUGE metrics**.
-- Save the model and tokenizer for deployment.
+        # If got blocked by shell: try these code then reset code terminal if needed
+        Get-Command node -ErrorAction SilentlyContinue
+        Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   ```
+
+
+#### Steps:
+1. Navigate to the backend folder:
+   ```sh
+   cd backend
+   ```
+
+2. Create a virtual environment (optional but recommended):
+   ```sh
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+
+3. Navigate to the frontend folder:
+   ```sh
+   cd ..
+   cd frontend
+   ```
+4. Install dependencies:
+   ```sh
+   npm install
+   ```
+5. Start the React frontend:
+   ```sh
+   npm start
+   ```
+   The frontend will be available at `http://localhost:3000/`
+
+
 
 ## References
 
@@ -169,4 +206,3 @@ pip install transformers[sentencepiece] datasets sacrebleu rouge_score py7zr
 
 **Author:** Group 21\
 **Date:** February 2025
-
